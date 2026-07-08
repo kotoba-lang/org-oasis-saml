@@ -48,3 +48,5 @@ jobs:
             ${{ runner.os }}-jdk${{ matrix.java }}-clj-
       - run: clojure -M:test
         working-directory: org-oasis-saml
+      - run: clojure -M:lint
+        working-directory: org-oasis-saml
