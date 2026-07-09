@@ -13,6 +13,11 @@ Reverse-domain named (`org-oasis-saml`, not bare `saml`) for the same reason as
 external standards body (OASIS) with its own domain, and a bare `saml` slug risks colliding
 with an unrelated kotoba-lang vocabulary name later.
 
+See [`kotoba-lang/saml`](https://github.com/kotoba-lang/saml) for the
+result-shape substrate layer that composes this with other auth factors
+(host-port pattern, no network/crypto here either, but a different
+abstraction level).
+
 ## What's in here — and what isn't
 
 This is the raw SAML 2.0 protocol/assertion *substrate*: building the right elements with the
