@@ -59,7 +59,7 @@
 ;; nothing here to copy (ADR-2608261100).
 
 (ns saml.acceptance
-  (:export [problem status-success? unsolicited?]))
+  (:export [main problem status-success? unsolicited?]))
 
 ;; --- document accessors -------------------------------------------------------
 
@@ -155,3 +155,27 @@
       (blank? (ds observed :name-id)) :missing-name-id
 
       :else :none)))
+
+;; --- the artifact's own conformance check ------------------------------------------
+;;
+;; `main` is the browser profile's entry point -- `runtime/browser-host.mjs`
+;; refuses to instantiate a module without one -- and it is not a stub. It
+;; runs the two decisions that need no document back through the code above
+;; and answers 0 only when each still decides the way this object was built
+;; to decide, so a COMPILED artifact can be asked whether it is itself by a
+;; host that knows nothing about SAML.
+;;
+;; The document-taking `problem` is deliberately NOT here: `main` takes no
+;; arguments, so it would have to build an assertion itself, and a module's
+;; fuel is a private global baked in at compile time (512 by default) spent
+;; over the life of an INSTANCE. The suite calls `problem` with documents
+;; the host builds, which is both cheaper and closer to how a service
+;; provider would.
+
+(defn main [] :i64
+  (cond
+    (if (status-success? "urn:oasis:names:tc:SAML:2.0:status:Success") false true) 1
+    (if (status-success? "urn:oasis:names:tc:SAML:2.0:status:Requester") true false) 2
+    (if (unsolicited? "") false true) 3
+    (if (unsolicited? "_req1") true false) 4
+    :else 0))
