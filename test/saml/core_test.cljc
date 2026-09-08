@@ -1,6 +1,6 @@
 (ns saml.core-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [saml.core :as saml]))
 
 (deftest authn-request-shape
