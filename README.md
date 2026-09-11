@@ -64,5 +64,5 @@ convention in `com-junkawasaki/root`):
 
 ```sh
 git clone https://github.com/kotoba-lang/xml ../xml   # if not already a sibling checkout
-clojure -M:test
+kbb -M:test
 ```
