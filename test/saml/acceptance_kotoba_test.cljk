@@ -34,7 +34,7 @@
 ;; the test invented.
 
 (ns saml.acceptance-kotoba-test
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kotoba.compiler.core :as compiler]
             [kotoba.kir :as ir]
@@ -109,7 +109,7 @@
   (call 'problem [(->doc observed) (->doc expectation)]))
 
 (deftest guest-source-is-present
-  (is (.exists guest-file) (str "kotoba object not found at " guest-file)))
+  (is (io/exists? guest-file) (str "kotoba object not found at " guest-file)))
 
 ;; --- the finding: nothing decides this today ----------------------------------------
 
